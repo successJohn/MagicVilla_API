@@ -26,7 +26,7 @@ jobs:
       - name: SonarQube analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: dotnet-sonarscanner begin /k:"successJohn_MagicVilla_API" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        run: dotnet-sonarscanner begin /k:"successJohn_MagicVilla_API" /o:"successjohn" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
       - name: Restore dependencies
         run: dotnet restore
