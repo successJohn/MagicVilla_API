@@ -132,8 +132,32 @@ namespace MagicVilla_VillaAPI.Controllers
             return NoContent();
         }
 
+        [HttpPost("villa-second")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public ActionResult<VillaDTO> CreateSecondVilla(VillaDTO villaDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                var villa = new Villa()
+                {
+                    Name = villaDTO.Name,
+                    Amenity = villaDTO.Amenity,
+                    Details = villaDTO.Details,
+                    Occupancy = villaDTO.Occupancy,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now
+                };
+                _context.Villas.Add(villa);
+                _context.SaveChanges();
+                return CreatedAtRoute("GetVilla", new { id = villa.Id }, villa);
+            }
+
+            return BadRequest();
+        }
+
+
         /*
-                 [HttpPatch("{id}")]
+                 [HttpPatch("{id}"
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult UpdatePartialVilla(int id, JsonPatchDocument<VillaDTO> patchDTO)
         {
