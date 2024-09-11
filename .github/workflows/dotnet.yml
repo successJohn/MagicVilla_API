@@ -20,6 +20,14 @@ jobs:
         with:
           dotnet-version: '7.0.x' 
 
+      - name: Install SonarScanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: SonarQube analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: dotnet-sonarscanner begin /k:"successJohn_MagicVilla_API" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
       - name: Restore dependencies
         run: dotnet restore
 
@@ -28,4 +36,7 @@ jobs:
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
+      
+      - name: End SonarQube analysis
+        run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
