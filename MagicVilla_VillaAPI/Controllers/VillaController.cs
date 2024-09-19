@@ -165,6 +165,11 @@ namespace MagicVilla_VillaAPI.Controllers
         {
             return Ok("Third");
         }
+        [HttpGet("fifth-get")]
+        public ActionResult GetFifthVilla()
+        {
+            return Ok("Fifth");
+        }
         /*
                  [HttpPatch("{id}"
         [ProducesResponseType(StatusCodes.Status204NoContent)]
